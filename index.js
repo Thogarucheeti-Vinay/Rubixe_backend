@@ -9,7 +9,7 @@ const port = 3001;
 app.use(cors());
 app.use(bodyParser.json());
 
-const db = new sqlite3.Database("./contacts.db", (err) => {
+const db = new sqlite3.Database("./messageus.db", (err) => {
   if (err) {
     console.error(err.message);
   }
@@ -24,7 +24,7 @@ db.run(`CREATE TABLE IF NOT EXISTS contacts (
   message TEXT
 )`);
 
-app.post("/contact", (req, res) => {
+app.post("/messageus", (req, res) => {
   const { id, name, email, phone, message } = req.body;
 
   const sql = `INSERT INTO contacts (id, name, email, phone, message) VALUES (?, ?, ?, ?, ?)`;
@@ -41,7 +41,7 @@ app.post("/contact", (req, res) => {
 });
 
 // Get all contacts from the database
-app.get("/contact", (req, res) => {
+app.get("/messageus", (req, res) => {
   const sql = `SELECT email FROM contacts`;
 
   db.all(sql, [], (err, rows) => {
